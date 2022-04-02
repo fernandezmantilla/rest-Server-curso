@@ -1,9 +1,11 @@
 const Role = require('../models/role');
 const Usuario = require('../models/usuario');
-const isValidRol = async (rol = '') => {
+
+const isValidRol = async (rol ='') => {
+    console.log(rol);
     const isRol = await Role.findOne({ rol });
     if (!isRol) {
-        throw new Error(`El) rol ${rol}, no está registrado en la DB`);
+        throw new Error(`El rol ${rol}, no está registrado en la DB`);
     };
 };
 
