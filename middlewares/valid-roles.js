@@ -4,7 +4,7 @@ const { request } = require("express");
 const esAdminRole = (req = request, res = response, next) =>{
     if (!req.usuario){
        return res.status(500).json({
-          msg: 'Verificvar role sin validar token'
+          msg: 'Verificar role sin validar token'
        })
     };
     const { rol, nombre} = req.usuario;

@@ -19,25 +19,20 @@ const usuariosGet = async (req = request, res = response) => {
     .skip(Number(desde))
     .limit(Number(limite))
   ])
-
   res.json({
     fecha: fecha,
     registros: total,
     usuarios
 
-  })
+  });
 };
 
 // actualizar registros.....
 
 const usuariosPut = async (req, res = response) => {
-
   const { id } = req.params;
   const { _id, password, google, eMail, ...resto } = req.body;
-
-
   // validar contra base de datos...
-
   if (password) {
     const salt = bcrypt.genSaltSync();
     resto.password = bcrypt.hashSync(password, salt);
@@ -50,7 +45,7 @@ const usuariosPut = async (req, res = response) => {
 };
 
 const usuariosDelete = async (req, res = response) => {
-  const { id } = req.params;
+  const { id } = req.params; 
   // const uid = req.uid;
   // solo poner en falso .....
   const usuario = await Usuario.findByIdAndUpdate( id, {status: false});
@@ -66,21 +61,21 @@ const usuariosDelete = async (req, res = response) => {
 
 // insertar un registro nuevo
 
-const usuariosPost = async (req, res = response) => {
+const usuariosPost = async (req = request, res = response) => {
   const { nombre, eMail, password, rol } = req.body;
   const usuario = new Usuario({
     nombre, eMail, password, rol,
   });
-
   // Encriptar contraseña...
   // decido que tan complejo es el encriptamiento.. por def 10 vueltas
   const salt = bcrypt.genSaltSync();
   // genero la llave encriptada...
   usuario.password = bcrypt.hashSync(password, salt);
-  // Salver datos
+  // Salvar datos
   await usuario.save();
   res.json({
-    usuario
+    fecha: fecha,
+    usuario: usuario
   })
 };
 
@@ -90,11 +85,6 @@ const usuariosPatch = (req, res = response) => {
     fecha: fecha
   })
 };
-
-
-
-
-
 
 module.exports = {
   usuariosGet,

@@ -3,7 +3,6 @@ const { response, request } = require('express');
 const { json } = require('express/lib/response');
 const { genJWT } = require('../helpers/gen-jwt');
 const { googleverify } = require('../helpers/google-verify');
-// const usuario = require('../models/usuario');
 const Usuario = require('../models/usuario');
 const fecha = new Date();
 
@@ -57,7 +56,6 @@ const googleSignIn = async (req = request, res = response) => {
     const { id_token } = req.body;
     try {
         const {nombre, img, eMail} = await googleverify(id_token);
-        // console.log(googleUser);
         // checamos que el correo no esté registrado en la db...
         let usuario = await Usuario.findOne({eMail});
         if (!usuario){ 
